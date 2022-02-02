@@ -1,24 +1,25 @@
 from napari.qt.threading import thread_worker
-import tifffile, os, time
-import napari
+import napari, tifffile, os, time
 
 @thread_worker
 def runCycle():
 
-    #Returns new and previous files
-    def getNewFiles(newPrevFiles = ([], [])):
-        newPrevFiles[1].clear()
+    #Returns new files in a folder
+    newFiles = []
+    oldFiles = []
+    def getFiles():
+        newFiles.clear
         for file in os.listdir('MIPs'):
-            if file not in newPrevFiles[0]:
-                newPrevFiles[0].append(file)
-                newPrevFiles[1].append(file)
-        return newPrevFiles    
+            if file not in oldFiles:
+                newFiles.append(file)
+                oldFiles.append(file)
+        return newFiles  
     
     #Returns list of all new files in tiff format
     def tiffImage(): 
         tifList = []
         im = []
-        for file in getNewFiles()[1]:
+        for file in getFiles():
             tifList.append('MIPs/'+file)
 
         for tif in tifList:
