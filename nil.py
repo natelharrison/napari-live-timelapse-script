@@ -3,15 +3,17 @@ from glob import glob
 import napari, tifffile, time
 
 directory = 'MIPs'
-channel = 'CamA_ch0,CamB_ch0,CamC_ch0'
+channels = 'CamA_ch0,CamB_ch0'
+colorMaps = 'blue,green'
 
-channelList = channel.split(',')
+colorList = colorMaps.split(',')
+channelList = channels.split(',')
 
 #Returns new files in a folder
-newFiles = []
+
 oldFiles = []
 def getFiles():
-    newFiles.clear()
+    newFiles = []
     for file in glob(directory+'/*tif'):
         if file not in oldFiles:
             newFiles.append(file)
@@ -19,8 +21,14 @@ def getFiles():
     newFiles.sort(key=lambda fname: int(fname.split('_')[3]))
     return newFiles
 
-def addStack(image):
-    viewer.add_image(image)
+
+def addImage(image):
+    for channel in channelList:
+        if channel in image:
+            imName = lambda fname: int(fname.split('_')[2:3])
+            im = tifffile.imread(image)
+            viewer.add_image(im, name=imName)
+
 
 #Returns list of all new files in tiff format
 def tiffImage(): 
@@ -31,10 +39,10 @@ def tiffImage():
         im.append(tifffile.imread(tif))
     return im
 
-@thread_worker(connect={'yielded': addStack})
+@thread_worker(connect={'yielded': addImage})
 def runCycle():
     while True:
-        for file in tiffImage():
+        for file in getFiles():
             yield file
         time.sleep(10)
 
