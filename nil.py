@@ -5,6 +5,8 @@ import napari, tifffile, time
 directory = 'MIPs'
 channel = 'CamA_ch0,CamB_ch0,CamC_ch0'
 
+channelList = channel.split(',')
+
 #Returns new files in a folder
 newFiles = []
 oldFiles = []
@@ -17,6 +19,9 @@ def getFiles():
     newFiles.sort(key=lambda fname: int(fname.split('_')[3]))
     return newFiles
 
+def addStack(image):
+    viewer.add_image(image)
+
 #Returns list of all new files in tiff format
 def tiffImage(): 
     newList = getFiles()
@@ -26,20 +31,17 @@ def tiffImage():
         im.append(tifffile.imread(tif))
     return im
 
-@thread_worker
+@thread_worker(connect={'yielded': addStack})
 def runCycle():
     while True:
         for file in tiffImage():
-            yield file 
+            yield file
         time.sleep(10)
 
 
 viewer = napari.Viewer()
-worker = runCycle()
-worker.yielded.connect(viewer.add_image)
 
-worker.start()
+runCycle()
 
 napari.run()
-
 
