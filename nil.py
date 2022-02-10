@@ -29,7 +29,7 @@ def add_images(file_list):
     colormap = color_list[channel_list.index(channel)]
     tif_list = []
     for image in file_list:       
-        tif_list.append(tifffile.imread(image))
+        tif_list.append(tifffile.imread(image, name=channel))
     print(channel)
     timelapse = np.asarray(tif_list)
     viewer.add_image(timelapse, name=channel, colormap=colormap)
