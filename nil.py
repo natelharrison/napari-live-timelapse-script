@@ -11,6 +11,8 @@ colorMaps = 'blue,green'
 color_list = colorMaps.split(',')
 channel_list = channels.split(',')
 
+viewer = napari.Viewer()
+
 old_files = []
 def get_files():
     new_files = []
@@ -25,14 +27,21 @@ im_array_list = []
 def add_images(file_list):   
     if not file_list:
         return  
+
     channel = file_list[1].split('_')[4] + '_' + file_list[1].split('_')[5] 
-    colormap = color_list[channel_list.index(channel)]
+    index = channel_list.index(channel)
+    colormap = color_list[index]
+    
     tif_list = []
     for image in file_list:       
         tif_list.append(tifffile.imread(image, name=channel))
-    print(channel)
     timelapse = np.asarray(tif_list)
-    viewer.add_image(timelapse, name=channel, colormap=colormap)
+    
+    if len(viewer.layers) >= len(color_list):
+        layer = viewer.layers[index]   
+        layer.data = np.concatenate((layer.data, timelapse), axis=0)
+    else:
+        viewer.add_image(timelapse, name=channel, colormap=colormap)
 
 @thread_worker(connect={'yielded': add_images})
 def run_cycle():
@@ -45,16 +54,6 @@ def run_cycle():
                     file_list.append(file)
             yield file_list
         time.sleep(10)
-
-
-viewer = napari.Viewer()
-
-
-# add a button to the viewew that, when clicked, stops the worker
-button = QPushButton("STOP!")
-button.clicked.connect(run_cycle().quit)
-run_cycle().finished.connect(button.clicked.disconnect)
-viewer.window.add_dock_widget(button)
 
 run_cycle()
 
