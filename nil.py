@@ -1,14 +1,13 @@
 from napari.qt.threading import thread_worker
-from qtpy.QtWidgets import QPushButton
 from glob import glob
 import napari, tifffile, time
 import numpy as np
 
 directory = 'MIPs'
 channels = 'CamA_ch0,CamB_ch0'
-colorMaps = 'blue,green'
+colormaps = 'blue,green'
 
-color_list = colorMaps.split(',')
+color_list = colormaps.split(',')
 channel_list = channels.split(',')
 
 viewer = napari.Viewer()
