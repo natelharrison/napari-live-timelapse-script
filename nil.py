@@ -13,17 +13,6 @@ channel_list = channels.split(',')
 
 viewer = napari.Viewer()
 
-old_files = []
-def get_files():
-    new_files = []
-    for file in glob(directory+'/*tif'):
-        if file not in old_files:
-            new_files.append(file)
-            old_files.append(file)
-    new_files.sort(key=lambda fname: int(fname.split('_')[3]))
-    return new_files
-
-im_array_list = []
 def add_images(file_list):   
     if not file_list:
         return  
@@ -45,8 +34,16 @@ def add_images(file_list):
 
 @thread_worker(connect={'yielded': add_images})
 def run_cycle():
+    old_files = []
     while True:
-        new_files = get_files()
+
+        new_files = []
+        for file in glob(directory+'/*tif'):
+            if file not in old_files:
+                new_files.append(file)
+                old_files.append(file)
+        new_files.sort(key=lambda fname: int(fname.split('_')[3]))
+
         for channel in channel_list:
             file_list = []
             for file in new_files:
@@ -58,5 +55,4 @@ def run_cycle():
 run_cycle()
 
 napari.run()
-
 
