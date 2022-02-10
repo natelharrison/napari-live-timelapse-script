@@ -6,6 +6,8 @@ import numpy as np
 directory = 'MIPs'
 channels = 'CamA_ch0,CamB_ch0'
 colormaps = 'blue,green'
+delay = 10 #seconds
+layer_buffer = 2
 
 color_list = colormaps.split(',')
 channel_list = channels.split(',')
@@ -37,7 +39,7 @@ def run_cycle():
     while True:
 
         new_files = []
-        for file in glob(directory+'/*tif'):
+        for file in glob(directory+'/*tif')[: -layer_buffer or None]:
             if file not in old_files:
                 new_files.append(file)
                 old_files.append(file)
@@ -49,7 +51,7 @@ def run_cycle():
                 if channel in file:
                     file_list.append(file)
             yield file_list
-        time.sleep(10)
+        time.sleep(delay)
 
 run_cycle()
 
