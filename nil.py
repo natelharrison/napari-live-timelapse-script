@@ -17,7 +17,7 @@ parser.add_argument('--contrast_limits', type=float, nargs='+', default=[None fo
 parser.add_argument('--gammma', type=float, nargs='+', default=[1.0 for i in channel_list])             #1.0 1.0 
 parser.add_argument('--colormaps', type=str, default='blue,green,red,magenta,yellow,orange,cyan')       #'blue,red,green'
 parser.add_argument('--blending', type=str, default=''.join(['addative,' for i in channel_list]))       #'addative,addative'
-parser.add_argument('--interpolation', type=str, default=''.join(['nearest,' for i in channel_list])    #'nearest,nearest'
+parser.add_argument('--interpolation', type=str, default=''.join(['nearest,' for i in channel_list]))    #'nearest,nearest'
 
 parser.add_argument('--auto_contrast', action='store_true')
 parser.add_argument('--toggle_grid_mode', action='store_true')                                        
