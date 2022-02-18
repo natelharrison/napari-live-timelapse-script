@@ -41,12 +41,11 @@ def add_images(file_list):
                                                2*index % len(args.contrast_limits)+2]
         if contrast_limits[0] is None:
             contrast_limits = None
-    
-        print(contrast_limits)
         viewer.add_image(
             timelapse, name=channel, opacity=args.opacity[index % len(args.opacity)], 
             contrast_limits=contrast_limits, gamma=args.gamma[index % len(args.gamma)], 
-            colormap=args.colormaps.split(',')[index], blending=args.blending, interpolation=args.interpolation)
+            colormap=args.colormaps.split(',')[index], blending=args.blending, 
+            interpolation=args.interpolation)
 
 @thread_worker(connect={'yielded': add_images})
 def fetch_files():
