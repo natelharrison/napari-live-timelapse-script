@@ -53,11 +53,10 @@ def fetch_files():
     old_files = []
     while True:
         new_files = []
-        for file in glob(args.directory+'/*tif')[: -args.layer_buffer or None]:
+        for file in sorted(glob(args.directory+'/*tif'))[: -args.layer_buffer or None]:
             if file not in old_files:
                 new_files.append(file)
                 old_files.append(file)
-        new_files.sort()
 
         for channel in channel_list:
             file_list = []
