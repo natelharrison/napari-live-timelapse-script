@@ -4,7 +4,7 @@ This script requires [Napari](https://napari.org/tutorials/fundamentals/installa
 To launch the script open Napari conda enviroment and navigate to directory where the script is located.
 The script can be called using `python nlts.py <directory location> <channel1,channel2,...> <optional arguments>`
 
-##### Arguments:
+#### Arguments:
 There are several optional image setting that can be passed into the script before launch. When passing in an argument that requires multiple values seperate them by spaces (e.g `--contrast_limits 0.0 100.0 0.0 100.0`) in the case of numerical inputs, or commas (e.g `--colormaps blue,green`) in the case of strings.
 - opacity: (0.0-1.0) The opacity of the image. One for each channel.
 - contrast limits: (No limits) The upper and lower contrast limits of the image. Upper and lower bounds for each image.
