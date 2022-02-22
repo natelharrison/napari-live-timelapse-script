@@ -1,6 +1,6 @@
 from napari.qt.threading import thread_worker
 from glob import glob
-import napari, tifffile, time, argparse, random
+import napari, tifffile, time, argparse
 import numpy as np
 
 parser = argparse.ArgumentParser()
@@ -23,7 +23,7 @@ def add_images(file_list):
     if not file_list:
         return  
 
-    channel = file_list[1].split('_')[4] + '_' + file_list[1].split('_')[5] 
+    channel = file_list[0].split('_')[4] + '_' + file_list[0].split('_')[5] 
     index = channel_list.index(channel)
 
     tif_list = []
@@ -50,6 +50,7 @@ def fetch_files():
     old_files = []
     while True:
         new_files = []
+        
         for file in sorted(glob(args.directory+'/*tif'))[: -args.layer_buffer or None]:
             if file not in old_files:
                 new_files.append(file)
