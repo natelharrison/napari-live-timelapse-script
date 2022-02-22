@@ -16,7 +16,7 @@ parser.add_argument('--colormaps', type=str, default='blue,green,red,magenta,yel
     help='Comma seperated string with colormap for each channel. --colormaps blue,green')    
 parser.add_argument('--blending', type=str, default='additive', 
     help='Single string for blending method. --blending additive')       
-parser.add_argument('--interpolation', type=str, default='nearest'
+parser.add_argument('--interpolation', type=str, default='nearest',
     help='Single string for interpolation method. --interpolation nearest')                                        
 parser.add_argument('--fetch_interval', type=int, default=10, 
     help='Duration to wait between checking folder for new files (seconds)')
