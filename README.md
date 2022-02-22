@@ -13,4 +13,4 @@ There are several optional image setting that can be passed into the script befo
 - blending: Blending option for each channel. Default is additive.
 - interpolation: Interpolation option for each channel. Default is nearest
 - fetch interval: Duration (seconds) to wait between searching directory for new images. Default is 2 minutes
-- layer buffer: Can prevent the files from being loaded into Napari in the wrong order in some rare cases, so we leave out the last N layers to prevent this. Usually don't change this.
+- layer buffer: Can prevent the files from being loaded into Napari in the wrong order in some rare cases, so we leave out the last N layers to prevent this. (This is not working as intended currently.
