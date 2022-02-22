@@ -1,5 +1,5 @@
 ### Multichannel live timelapse Script
-This script requires [Napari](https://napari.org/tutorials/fundamentals/installation:// "Napari") to be installed.d
+This script requires [Napari](https://napari.org/tutorials/fundamentals/installation:// "Napari") to be installed.
 
 To launch the script open Napari conda enviroment and navigate to directory where the script is located.
 The script can be called using `python nlts.py <directory location> <channel1,channel2,...> <optional arguments>`
