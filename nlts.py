@@ -1,7 +1,10 @@
 from napari.qt.threading import thread_worker
 from glob import glob
-import napari, tifffile, time, argparse
 import numpy as np
+import napari
+import tifffile
+import time
+import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('directory', type=str)
