@@ -1,4 +1,6 @@
 ### Multichannel live timelapse Script
+Current code can be inefficient with large image stacks so I will be making the file processing more efficient.
+
 This script requires [Napari](https://napari.org/tutorials/fundamentals/installation:// "Napari") to be installed.
 
 To launch the script open Napari conda enviroment and navigate to directory where the script is located.
